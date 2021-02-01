@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca&display=swap" rel="stylesheet">
+    <title>Yoz Broz</title>
+    <style>
+        audio{
+            display: none;
+            width: 40%;
+            margin: auto;
+        }
+        body{
+            background-color: rgb(0, 0, 0);
+        }
+        #timer{
+            font-size: 10rem;
+            font-family: 'Lexend Deca', sans-serif;
+            color: white;
+            text-align: center;
+            margin-top: 17rem;
+        }
+        #timeUp{
+            font-size: 5rem;
+            font-family: 'Lexend Deca', sans-serif;
+            color: white;
+            text-align: center;
+            margin-top: 17rem;
+            margin-bottom: 1rem;
+            display: none;
+        }
+        button{
+            margin-bottom: 2rem;
+            margin: auto;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 1.5rem;
+            width: 20rem;
+            height: 5rem;
+            padding: 5;
+            background-color: white;
+            color: black;
+            display: none;
+        }
+        button:hover{
+            cursor: pointer;
+        }
+        #setbtn{
+            display: block;
+            margin-top: 17rem;
+        }
+        #startText{
+            font-family: 'Lexend Deca', sans-serif;
+            font-size: 6rem;
+            text-align: center;
+            margin-top: 4rem;
+            color: white;
+        }
+        @media only screen and (max-width: 600px){
+            #timer{
+                font-size: 5rem;
+            }
+            #timeUp{
+                font-size: 2rem;
+            }
+            #startText{
+                font-size: 2rem;
+            }
+            button{
+                font-size: 1rem;
+                padding: 2px;
+                width: 10rem;
+                height: 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h3 id="startText">Welcome to d JS codimg.</h3>
+        <button onclick="set()" id="setbtn">Set Timer</button>
+        <p id="timer"></p>
+        <audio id="vid" loop>
+            <source src="shree.mp3" type="audio/mpeg">
+        </audio>
+        <h6 id="timeUp">
+            Time Up! Jai Shree Ram!
+        </h6>
+        <button onclick="stop()" id="stopbtn">Stop Audio</button>
+        <button onclick="reload()" id="reloadbtn">Set Timer Again</button>
+    </div>
+    <script>
+
+        let startSeconds = 0;
+
+        function set(){
+            let startingmin = prompt("Minutes");
+            let seconds = prompt("Seconds");
+            startS = (startingmin * 60) + parseInt(seconds);
+            startSeconds = startS
+            stbtn.style.display = 'none';
+            txt.style.display = 'none';
+            if(startingmin == undefined || seconds == undefined){
+                timer.innerHTML = "Please provide d time."
+            }else{
+                intervalId = setInterval(updateTime, 1000);
+            }
+        }
+
+        let time = document.getElementById('timer')
+        let vid = document.getElementById('vid')
+        let timeUp = document.getElementById('timeUp')
+        let stpbtn = document.getElementById('stopbtn')
+        let rbtn = document.getElementById('reloadbtn')
+        let stbtn = document.getElementById('setbtn')
+        let txt = document.getElementById('startText')
+
+        function updateTime(){
+            let min = Math.floor(startSeconds / 60);
+            let sec = startSeconds % 60
+        
+            min = min < 10 ? "0"+min : min.toString()   
+            sec = sec < 10 ? "0"+sec : sec.toString()
+
+
+            if(min == "0-1" && sec == "0-1"){
+                clearInterval(intervalId)
+                time.style.display = 'none';
+                vid.style.display = 'inline';
+                timeUp.style.display = 'block'
+                stpbtn.style.display = "block"
+                rbtn.style.display = "block"
+                vid.play();
+            }else{
+                time.innerHTML = `${min} : ${sec}`
+                startSeconds--;
+            }
+        }
+
+        function stop(){
+            vid.pause()
+        }
+
+        function reload(){
+            location.reload();
+        }
+    </script>
+</body>
+</html>
