@@ -104,6 +104,9 @@
             txt.style.display = 'none';
             if(startingmin == undefined || seconds == undefined){
                 timer.innerHTML = "Please provide d time."
+            }
+            else if(startingmin < 0 || seconds < 0){
+                timer.innerHTML = "+ve values only plis."
             }else{
                 intervalId = setInterval(updateTime, 1000);
             }
